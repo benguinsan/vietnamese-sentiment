@@ -27,7 +27,7 @@
 
 ```bash
 # Nếu có Git repository
-git clone <repository-url>
+git clone <https://github.com/benguinsan/vietnamese-sentiment>
 cd Seminar
 
 # Hoặc giải nén file ZIP vào thư mục Seminar
@@ -208,7 +208,7 @@ Khi mở ứng dụng, bạn sẽ thấy:
 
 #### Bước 3: Xem kết quả
 
-Sau khi phân tích, bạn sẽ thấy:
+Sau khi phân loại, bạn sẽ thấy:
 
 **a) Kết quả chính**:
 - **Hộp cảm xúc lớn**: Hiển thị loại cảm xúc được dự đoán
