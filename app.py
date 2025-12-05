@@ -395,11 +395,7 @@ with tab2:
                     st.caption(f"**Sentiment Label:** {sentiment_label}")
                 with col_info2:
                     st.caption(f"**⏰ Thời gian:** {timestamp}")
-                
-                # # Nút xóa mục này
-                # if st.button(f"🗑️ Xóa mục này", key=f"delete_{analysis_id}"):
-                #     delete_sentiment_analysis(analysis_id)
-                #     st.rerun()
+        
 
 # Footer
 st.markdown("---")
