@@ -37,7 +37,7 @@ cd Seminar
 
 ```bash
 # Tạo virtual environment
-python -m venv venv
+python3.11 -m venv venv
 
 # Kích hoạt virtual environment
 # Trên Windows:
@@ -50,7 +50,7 @@ source venv/bin/activate
 
 ```bash
 # Cài đặt tất cả dependencies từ requirements.txt
-pip install -r requirements.txt
+pip3.11 install -r requirements.txt
 ```
 
 **Các thư viện chính được sử dụng**:
