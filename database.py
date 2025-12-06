@@ -95,27 +95,5 @@ def get_sentiment_analysis():
     return results
 
 
-# def delete_sentiment_analysis(analysis_id):
-#     """
-#     Xóa một bản ghi phân tích theo ID
-    
-#     Args:
-#         analysis_id: ID của bản ghi cần xóa
-#     """
-#     conn = get_connection()
-#     cur = conn.cursor()
-#     cur.execute('''DELETE FROM sentiment_analysis WHERE id = ?''', (analysis_id,))
-#     conn.commit()
-#     conn.close()
 
-
-# def delete_all_sentiment_analysis():
-#     """
-#     Xóa tất cả bản ghi phân tích
-#     """
-#     conn = get_connection()
-#     cur = conn.cursor()
-#     cur.execute('''DELETE FROM sentiment_analysis''')
-#     conn.commit()
-#     conn.close()
 

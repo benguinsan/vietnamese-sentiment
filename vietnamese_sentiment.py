@@ -273,9 +273,10 @@ class VietnameseSentimentAnalyzer:
         Returns:
             dict: {
                 'original_text': text gốc,
-                'cleaned_text': text đã được xử lý,
+                'text': text đã được xử lý,
                 'sentiment': label (NEG/POS/NEU),
                 'confidence': confidence score (0-1)
+                'all_scores': scores cho tất cả labels
             }
         """
         # 1. Restore dấu
@@ -298,8 +299,8 @@ class VietnameseSentimentAnalyzer:
 
         return {
             'original_text': text,
-            'cleaned_text': cleaned_text,
+            'text': cleaned_text,
             'sentiment': top_result['label'],
             'confidence': top_result['score'],
-            'all_scores': all_scores  # Thêm scores cho tất cả labels
+            'all_scores': all_scores 
         }

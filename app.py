@@ -12,7 +12,7 @@ from database import (
 init_database()
 
 
-# Import các thư viện ML (có thể không có nếu chưa cài)
+# Import các thư viện ML 
 try:
     import torch
     from transformers import AutoTokenizer, AutoModelForSequenceClassification
@@ -67,10 +67,10 @@ st.markdown("""
 
 # Header
 st.markdown('<p class="main-header">Trợ lý phân loại cảm xúc văn bản tiếng Việt</p>', unsafe_allow_html=True)
-st.markdown('<p class="sub-header">Nhập văn bản của bạn để phân tích cảm xúc</p>', unsafe_allow_html=True)
+st.markdown('<p class="sub-header">Nhập văn bản của bạn để phân loại cảm xúc</p>', unsafe_allow_html=True)
 
-# Tabs cho Phân tích và Lịch sử
-tab1, tab2 = st.tabs(["🔍 Phân tích", "📜 Lịch sử"])
+# Tabs cho Phân loại và Lịch sử
+tab1, tab2 = st.tabs(["🔍 Phân loại", "📜 Lịch sử"])
 
 # Khởi tạo session state cho lịch sử và analyzer
 if 'analyzer_loaded' not in st.session_state:
@@ -226,20 +226,20 @@ def create_scores_dict(sentiment_label, confidence, all_scores=None):
 
 def save_result_to_database(text, sentiment, confidence, timestamp):
     """
-    Lưu kết quả phân tích vào database
+    Lưu kết quả vào database
     """
     insert_sentiment_analysis(text, sentiment, confidence, timestamp)
 
 def get_result_from_database():
     """
-    Lấy kết quả phân tích từ database
+    Lấy kết quả từ database
     """
     return get_sentiment_analysis()
 
 with tab1:
     st.header("📝 Nhập văn bản")
     text_input = st.text_area(
-        "Nhập văn bản cần phân tích cảm xúc:",
+        "Nhập văn bản cần phân loại cảm xúc:",
         height=200,
         placeholder="Ví dụ: Hôm nay là một ngày tuyệt vời! Tôi cảm thấy rất hạnh phúc và vui mừng.",
         key="text_input"
@@ -269,15 +269,16 @@ with tab1:
             if st.session_state.analyzer is None:
                 st.error("❌ Không thể load sentiment analyzer. Vui lòng kiểm tra lại cài đặt!")
             else:
-                with st.spinner("Đang phân tích cảm xúc..."):
+                with st.spinner("Đang phân loại cảm xúc..."):
                     result = classify_emotion(text_input)
                 
                 if result:
-                    # Lấy thông tin từ kết quả
+                    # Lấy thông tin từ kết quả (đầy đủ các trường)
                     sentiment_label = result['sentiment']
-                    confidence = result['confidence']
-                    cleaned_text = result.get('cleaned_text', text_input)
-                    all_scores = result.get('all_scores', None)  # Lấy scores thực từ model
+                    confidence = result.get('confidence', 1.0)
+                    cleaned_text = result.get('text', text_input)
+                    original_text = result.get('original_text', text_input)
+                    all_scores = result.get('all_scores', None)
                     
                     # Map sentiment label sang tiếng Việt
                     emotion, emoji = map_sentiment_label(sentiment_label)
@@ -315,23 +316,23 @@ with tab1:
                             )
                             st.progress(score)
                     
-                    # Hiển thị văn bản đã phân tích
+                    # Hiển thị văn bản đã phân loại
                     st.subheader("📄 Văn bản đã xử lý")
                     with st.expander("Xem chi tiết"):
                         st.text("Văn bản gốc:")
-                        st.info(result['original_text'])
+                        st.info(original_text)
                         st.text("Văn bản đã chuẩn hóa:")
                         st.success(cleaned_text)
                     
                     # Lưu kết quả vào database sqlite
-                    save_result_to_database(text_input, sentiment_label, confidence, get_timestamp())
+                    save_result_to_database(original_text, sentiment_label, confidence, get_timestamp())
 
                     st.success("✅ Kết quả đã được lưu vào lịch sử!")
                 else:
-                    st.error("❌ Không thể phân tích văn bản. Vui lòng thử lại!")
+                    st.error("❌ Không thể phân loại văn bản. Vui lòng thử lại!")
             
     elif classify_button and not text_input:
-        st.warning("⚠️ Vui lòng nhập văn bản trước khi phân tích!")
+        st.warning("⚠️ Vui lòng nhập văn bản trước khi phân loại!")
 
 with tab2:
     st.header("📜 Lịch sử phân loại")
@@ -340,7 +341,7 @@ with tab2:
     history_data = get_result_from_database()
     
     if len(history_data) == 0:
-        st.info("📭 Chưa có lịch sử phân loại nào. Hãy phân tích một văn bản để bắt đầu!")
+        st.info("📭 Chưa có lịch sử phân loại nào. Hãy phân loại một văn bản để bắt đầu!")
     else:
         # Thống kê tổng quan
         st.subheader("📊 Thống kê tổng quan")
