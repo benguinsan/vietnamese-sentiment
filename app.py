@@ -32,6 +32,16 @@ st.set_page_config(
 # CSS tùy chỉnh để làm đẹp UI
 st.markdown("""
     <style>
+    .stApp {
+        background-color: #ffffff;
+    }
+    .main .block-container {
+        background-color: #ffffff;
+    }
+    section[data-testid="stSidebar"] {
+        background-color: #f0f2f6;
+    }
+    
     .main-header {
         font-size: 9.5rem;
         font-weight: 900;
