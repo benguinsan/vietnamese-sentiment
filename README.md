@@ -166,7 +166,7 @@ Seminar/
 ├── selected_tags_names.txt     # File tags cho accent restoration
 ├── sentiment_analysis.db      # Database SQLite (tự động tạo)
 ├── README.md                   # File này
-└── HUONG_DAN_MODEL.md         # Hướng dẫn tích hợp model
+
 ```
 
 ## 🔧 Hướng dẫn sử dụng chi tiết
