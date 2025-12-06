@@ -28,7 +28,6 @@
 ```bash
 # Nếu có Git repository
 git clone <https://github.com/benguinsan/vietnamese-sentiment>
-cd Seminar
 
 # Hoặc giải nén file ZIP vào thư mục Seminar
 ```
